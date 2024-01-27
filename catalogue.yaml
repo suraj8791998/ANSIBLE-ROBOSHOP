@@ -37,6 +37,52 @@
      path: /app
      state: directory
 
+  - name: DOWNLOADING THE APPLICATION
+    ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+    dest: /tmp/catalogue.zip 
+
+  - name: UNZIPPING THE APPLICATION 
+    ansible.builtin.unarchive:
+    src: //tmp/catalogue.zip 
+    dest: /app
+    remote_src: yes
+
+  - name: INSTALLING THE DEPENDENCIES
+    ansible.builtin.command:
+    args:
+     chdir: /app
+
+  - name: COPYING FILES TO CATALOGUE SERVICE
+    ansible.builtin.copy:
+     src: catalogue.service
+     dest: /etc/systemd/system/catalogue.service
+
+  - name: DEAMON-RELOAD SERVICE
+    ansible.builtin.systemd_service:
+     daemon_reload: true
+
+  - name: ENABLING AND STARTING THE SERVICE
+    ansible.builtin.systemd_service:
+     name: catalogue
+     enabled: true
+
+  - name: COPYING MONGO-DB REPO
+    ansible.builtin.copy:
+     src: mongo.repo
+     dest: /etc/yum.repos.d/mongo.repo
+
+  - name: INSTALLING MONGO-REPO SHELL
+    ansible.builtin.yum:
+     name: mongodb-org-shell
+     state: present
+    
+  - name: LOADING THE SHCEMA
+    ansible.builtin.command: mongo --host 172.31.39.152 < /app/schema/catalogue.js
+     
+     
+
+
 
 
   
