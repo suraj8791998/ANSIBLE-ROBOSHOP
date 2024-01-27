@@ -7,3 +7,26 @@
     ansible.builtin.copy:
      src: mongo.repo
      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: INSTALLING MONGODB APPLICATION
+    ansible.builtin.yum:
+     name: mongodb-org
+     state: installed
+
+  - name: ENABLING AND STARTING THE MONGODB
+    ansible.builtin.service:
+     name: mongod
+     state: started
+     enabled: yes
+
+  - name: REPLACING THE CONFIG FILE
+    ansible.builtin.replace:
+     path: /etc/mongod.conf
+     regexp: '127.0.0.1'
+     replace:  '0.0.0.0'
+
+  - name: RESTARTING THE MONGODB
+    ansible.builtin.service:
+     name: mongod
+     state: restarted
+     
