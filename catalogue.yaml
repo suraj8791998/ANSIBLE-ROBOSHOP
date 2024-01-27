@@ -25,7 +25,7 @@
   - name: CHECKING WHETHER DIRECTORY EXISTS OR NOT
     ansible.builtin.stat:
      path: /app
-     register: directory
+    register: directory
 
   - name: PRINTING THE STAT OF THE FILE
     ansible.builtin.debug:
