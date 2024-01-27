@@ -1,0 +1,9 @@
+- name: DEVELOPING MONGO-DB APPLICATION
+  hosts: mongodb
+  become: yes
+
+  tasks:
+  - name: COPYING MONGO-DB REPO
+    ansible.builtin.copy:
+     src: mongo.repo
+     dest: /etc/yum.repos.d/mongo.repo
