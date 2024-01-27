@@ -14,3 +14,4 @@
   - name: CHECKING WHETHER USER IS EXIST OR NOT
     ansible.builtin.yum: id roboshop
     register: user
+    ignore_errors: true
