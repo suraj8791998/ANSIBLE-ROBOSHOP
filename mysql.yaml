@@ -1,0 +1,10 @@
+- name: DEVELOPING MYSQL APPLICATION
+  hosts: mysql
+  become: yes
+
+  tasks:
+  - name: DISABLE MYSQL 8 VERSION
+    ansible.builtin.service:
+     name: mysql 
+     state: stopped
+     
