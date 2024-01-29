@@ -1,0 +1,11 @@
+- name: DEVELOPING REDIS APPLICATION
+  hosts: redis
+  become: yes
+
+- tasks:
+  
+  - name: SETTING UP REPO FILE
+    ansible.builtin.command: yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+
+  - name: ENABLING REDIS 6.2
+    ansible.builtin.command: yum module enable redis:remi-6.2 -y
