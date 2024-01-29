@@ -1,89 +1,30 @@
-- name: DEVELOPING CART APPLICATION
+- name: DEVELOPING CART APPLICATIPON
   hosts: cart
   become: yes
 
   tasks:
-  - name: SETUP NODEJS REPO
+  - name: SETTING UP NODEJS
     ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
-  - name: INSTALLING NODEJS APPLICATION
+  - name: INSTALL NODEJS
     ansible.builtin.yum:
-     name: nodejs
-     state: present
+     name: nodejs 
+     state: latest
 
-  - name: CHECKING WHETHER USER IS EXIST OR NOT
+  - name: CHECKING USER IS EXIST OR NOT
     ansible.builtin.command: id roboshop
     register: user
     ignore_errors: true
- 
-  - when: user.rc != 0
-    name: CREATING USER
-    become: yes
-    ansible.builtin.user:
-     name: roboshop
 
-  - name: CHECKING WHETHER DIRECTORY EXISTS OR NOT
-    ansible.builtin.stat:
-     path: /app
+  - when: out.rc != 0
+    name: create user roboshop
+    become: yes 
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: CHECK WHETHER DIRECTORY IS EXIST OR NOT
+    ansible.builtin.stat: 
+      path: /app
     register: directory
 
-  - name: PRINTING THE STAT OF THE FILE
-    ansible.builtin.debug:
-     msg: "output {{directory}}"
-
-  - when: directory.stat.exists == False
-    name: CREATING DIRECTORY
-    ansible.builtin.file:
-     path: /app
-     state: directory
-
-  - name: DOWNLOADING THE APPLICATION
-    ansible.builtin.get_url:
-     url: https://roboshop-builds.s3.amazonaws.com/cart.zip
-     dest: /tmp/cart.zip 
-
-  - name: UNZIPPING THE APPLICATION 
-    ansible.builtin.unarchive:
-     src: //tmp/cart.zip 
-     dest: /app
-     remote_src: yes
-
-  - name: INSTALLING THE DEPENDENCIES
-    ansible.builtin.command: npm install
-    args:
-     chdir: /app
-
-  - name: COPYING FILES TO cart SERVICE
-    ansible.builtin.copy:
-     src: cart.service
-     dest: /etc/systemd/system/cart.service
-
-  - name: DEAMON-RELOAD SERVICE
-    ansible.builtin.systemd_service:
-     daemon_reload: true
-
-  - name: ENABLING AND STARTING THE SERVICE
-    ansible.builtin.systemd_service:
-     name: cart
-     enabled: true
-
-  - name: copy mongo repo to yum.repos.d
-    ansible.builtin.copy:
-      src: mongodb.repo
-      dest: /etc/yum.repos.d/mongo.repo
-
-
-  - name: INSTALLING MONGO-REPO SHELL
-    ansible.builtin.yum:
-     name: mongodb-org-shell
-     state: present
     
-  - name: LOADING THE SHCEMA
-    ansible.builtin.command: mongo --host 172.31.24.34 < /app/schema/cart.js
-     
-     
-
-
-
-
-  
