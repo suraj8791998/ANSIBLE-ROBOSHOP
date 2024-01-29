@@ -3,4 +3,9 @@
   become: yes
 
   tasks:
-  - name: 
+  - name: INSTALLING MAVEN SOFTWARE
+    ansible.builtin.yum:
+     name: maven 
+     state: latest
+
+     
