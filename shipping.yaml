@@ -31,5 +31,52 @@
      state: directory
 
   - name: DOWNLOADING THE APPLICATION
-    ansible.builtin.shell:  curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+    ansible.builtin.get_url:
+     url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+     dest: /tmp/shipping.zip
+
+  - name: UNZIPPING THE APPLICATION
+    ansible.builtin.unarchive:
+     src: /tmp/shipping.zip
+     dest: /app
+
+  - name: INSTALLING THE DEPENDENCIES
+    ansible.builtin.command: mvn clean package
+    args: 
+     chdir: /app
+
+  - name: RENAMING THE FOLDER
+    ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+
+  - name: COPYING SHIPPING SERVICE
+    ansible.builtin.copy:
+     src: shipping.service
+     dest: /etc/systemd/system/shipping.service
+
+  - name: DEAMON RELOAD
+    ansible.builtin.systemd:
+     deamon_reload: true
+
+  - name: ENABLING AND STARTING THE SERVICE
+    ansible.builtin.service:
+     name: shipping 
+     state: started
+     enabled: true
+
+  - name: INSTALLING MYSQL CLIENT
+    ansible.builtin.yum: 
+     name: mysql 
+     state: present
+
+  - name: LOADING THE SCHEMA
+    ansible.builtin.command: mysql -h 172.31.27.9 -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+
+  - name: RESTARTING THE SHIPPING
+    ansible.builtin.service:
+     name: shipping 
+     state: restarted
+  
+    
+    
+
     
