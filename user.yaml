@@ -75,8 +75,8 @@
      state: latest
 
   - name: LOADING THE SCHEMAN
-    ansible.builtin.command: mongo --host 172.31.24.34 </app/schema/user.js
-     remote_src: yes
+    ansible.builtin.command: mongo --host 172.31.24.34 < /app/schema/user.js
+     
 
   - name: RESTARTING THE SERVICE
     ansible.builtin.service:
