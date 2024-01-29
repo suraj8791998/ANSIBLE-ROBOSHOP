@@ -1,4 +1,4 @@
-- name: DEVELOPING REDIS APPLICATION
+- name: DEVELOPING WEB APPLICATION
   hosts: redis
   become: yes
 
