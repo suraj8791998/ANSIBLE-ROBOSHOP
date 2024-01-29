@@ -53,9 +53,9 @@
 
   - name: COPYING SHIPPING SERVICE
     ansible.builtin.copy:
-     src: shipping.service
-     dest: /etc/systemd/system/shipping.service
-     remote_src: yes
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
+
 
   - name: DEAMON RELOAD
     ansible.builtin.systemd:
