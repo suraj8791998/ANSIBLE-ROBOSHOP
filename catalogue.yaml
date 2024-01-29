@@ -78,7 +78,7 @@
      state: present
     
   - name: LOADING THE SHCEMA
-    ansible.builtin.command: mongo --host 172.31.39.152 < /app/schema/catalogue.js
+    ansible.builtin.command: mongo --host 172.31.24.34 < /app/schema/catalogue.js
      
      
 
