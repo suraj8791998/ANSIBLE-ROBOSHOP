@@ -6,3 +6,23 @@
   - name: DISABLE MYSQL 8 VERSION
     ansible.builtin.command: yum module disable mysql -y 
     
+  - name: COPYING MSQL REPO FILE
+    ansible.builtin.copy:
+     src: mysql.repo
+     dest: /etc/yum.repos.d/mysql.repo
+
+  - name: INSATLLING MYSQL PACKAGES
+    ansible.builtin.yum:
+     name: mysql-community-server
+     state: present
+
+  - name: ENABLING AND STARTING THE SERVICE
+    ansible.builtin.service:
+     name: mysqld
+     state: started
+     enabled: true
+
+  - name: CHANGE THE DEFAULT ROOM PASSWORD
+    ansible.builtin.command:  mysql_secure_installation --set-root-pass RoboShop@1
+
+    
