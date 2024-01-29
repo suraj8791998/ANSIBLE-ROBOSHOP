@@ -1,0 +1,10 @@
+- name: DEVELOPING RABBITMQ SOFTWARE
+  hosts: rabbitmq
+  become: yes
+
+  tasks: 
+  - name: CONFIGURING YUM REPO
+    ansible.builtin.shell: "{{ item }}"
+    loop:
+     - curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+     - curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
