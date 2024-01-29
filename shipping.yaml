@@ -1,1 +1,6 @@
 - name: DEVELOPING SHIPPING APPLICATION
+  hosts: shipping
+  become: yes
+
+  tasks:
+  - name: 
