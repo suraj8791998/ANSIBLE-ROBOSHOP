@@ -10,16 +10,16 @@
      - curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
      - curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
- - name: INSATLLING RANBBITMQ SERVER
-   ansible.builtin.yum:
-    name:  rabbitmq-server
-    state: latest
+  - name: INSATLLING RANBBITMQ SERVER
+    ansible.builtin.yum:
+     name:  rabbitmq-server
+     state: latest
 
- - name: ENABLING AND STARTING THE SERVICE
-   ansible.builtin.service:
-    name: rabbitmq-server 
-    state: started
-    enabled: true
+  - name: ENABLING AND STARTING THE SERVICE
+    ansible.builtin.service:
+     name: rabbitmq-server 
+     state: started
+     enabled: true
 
   - name: CREATING USER FOR APPLICATION
     ansible.builtin.shell:  rabbitmqctl add_user roboshop roboshop123
