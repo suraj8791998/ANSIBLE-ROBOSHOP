@@ -1,5 +1,5 @@
 - name: DEVELOPING REDIS APPLICATION
-  hosts: redis
+  hosts: web
   become: yes
 
   tasks:
