@@ -59,7 +59,7 @@
 
   - name: DEAMON RELOAD
     ansible.builtin.systemd:
-     deamon_reload: true
+     daemon_reload: true
 
   - name: ENABLING AND STARTING THE SERVICE
     ansible.builtin.service:
