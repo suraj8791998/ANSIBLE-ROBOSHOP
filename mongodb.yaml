@@ -3,12 +3,11 @@
   become: yes
 
   tasks:
-  - name: COPYING MONGO-DB REPO
+  - name: copy mongo repo to yum.repos.d
     ansible.builtin.copy:
-     src: mongodb.repo
-     dest: /etc/yum.repos.d/mongodb.repo
-     remote_src: yes
-
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+      
   - name: INSTALLING MONGODB APPLICATION
     ansible.builtin.yum:
      name: mongodb-org
