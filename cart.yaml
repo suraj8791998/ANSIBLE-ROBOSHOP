@@ -42,6 +42,7 @@
     ansible.builtin.unarchive:
      src: /tmp/cart.zip
      dest: /app
+     remote_src: yes
 
   - name: INSTALLING THE DEPENDENCIES
     ansible.builtin.command: npm install
@@ -58,4 +59,3 @@
      state: started
      enabled: true
 
-     
