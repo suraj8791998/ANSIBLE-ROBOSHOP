@@ -8,4 +8,28 @@
      name: maven 
      state: latest
 
-     
+  - name: CHECKING USER IS EXITS OR NOT
+    ansible.builtin.command: id roboshop
+    register: user
+    ignore_errors: true
+
+  - when: user.rc !=0
+    name: CREATING USER
+    become: yes
+    ansible.builtin.user:
+     name: roboshop
+
+  - name: CHECKING DIRECTORY EXIST OR NOT
+    ansible.builtin.stat:
+     path: /app
+    register: directory
+
+  - when: directory.stat.exists == False
+    name: PRINTING DIRECTORY EXISTS OR NOT
+    ansible.builtin.file:
+     path: /app
+     state: directory
+
+  - name: DOWNLOADING THE APPLICATION
+    ansible.builtin.shell:  curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+    
