@@ -48,11 +48,13 @@
 
   - name: RENAMING THE FOLDER
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+     remote_src: yes
 
   - name: COPYING SHIPPING SERVICE
     ansible.builtin.copy:
      src: shipping.service
      dest: /etc/systemd/system/shipping.service
+     remote_src: yes
 
   - name: DEAMON RELOAD
     ansible.builtin.systemd:
