@@ -33,3 +33,29 @@
       path: /app
       state: directory
     
+  - name: DOWNLOADING THE APPLICATION
+    ansible.builtin.get_url:
+     url: https://roboshop-builds.s3.amazonaws.com/cart.zip
+     dest: /tmp/cart.zip
+
+  - name: UNZIPPING THE APPLICATION
+    ansible.builtin.unarchive:
+     src: /tmp/cart.zip
+     dest: /app
+
+  - name: INSTALLING THE DEPENDENCIES
+    ansible.builtin.command: npm install
+    args:
+     chdir: /app
+    
+  - name: DEAMON-RELOAD THE SERVICE
+    ansible.builtin.systemd:
+      daemon_reload: true
+
+  - name: ENABLING AND STARTING THE SERVICE
+    ansible.builtin.service:
+     name: cart 
+     state: started
+     enabled: true
+
+     
