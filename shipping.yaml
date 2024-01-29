@@ -48,7 +48,8 @@
 
   - name: RENAMING THE FOLDER
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
-     remote_src: yes
+    args:
+      chdir: /app
 
   - name: COPYING SHIPPING SERVICE
     ansible.builtin.copy:
