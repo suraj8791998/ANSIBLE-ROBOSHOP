@@ -18,7 +18,16 @@
      name: redis 
      state: present
 
-    
+  - name: UPDATE LISTEN ADDRESS
+    ansible.builtin.replace:
+     path: /etc/redis.conf
+     regexp: '127.0.0.1'
+     replace: '0.0.0.0 '
 
-
+  - name: ENABLING AND STRATING THE SERVICE
+    ansible.builtin.service:
+     name: redis
+     state: started
+     enabled: true
+     
      
