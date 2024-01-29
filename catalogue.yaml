@@ -67,11 +67,10 @@
      name: catalogue
      enabled: true
 
-  - name: COPYING MONGO-DB REPO
+  - name: copy mongo repo to yum.repos.d
     ansible.builtin.copy:
-     src: /home/centos/ANSIBLE-ROBOSHOP/mongodb.repo
-     dest: /etc/yum.repos.d/mongo.repo
-     remote_src: yes
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
 
 
   - name: INSTALLING MONGO-REPO SHELL
