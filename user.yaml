@@ -75,7 +75,7 @@
      state: latest
 
   - name: LOADING THE SCHEMAN
-    ansible.builtin.command: mongo --host 172.31.24.34 < /app/schema/user.js
+    ansible.builtin.command: mongo --host 172.31.19.77 < /app/schema/user.js
      
 
   - name: RESTARTING THE SERVICE
