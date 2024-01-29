@@ -1,16 +1,18 @@
 - name: DEVELOPING REDIS APPLICATION
-  hosts: web
+  hosts: redis
   become: yes
-  tasks:
-  - name: SETTING UP RMP FILE
-    ansible.builtin.command: yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
 
-# tasks:
-#   - name: SETTING UP NPM FILE
-#     ansible.builtin.yum:
-#      name:  https://rpms.remirepo.net/enterprise/remi-release-8.rpm 
-#      state: installed
-#     #  disable_gpg_check: true  
+  tasks:
+  
+  - name: SETTING UP NPM FILE
+    ansible.builtin.yum:
+     name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+     state: present
+     disable_gpg_check: true
+
+  - name: ENABLING REDIS 6.2
+    ansible.builtin.command: yum module enable redis:remi-6.2
+    
 
 
      
