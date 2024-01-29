@@ -69,7 +69,7 @@
 
   - name: COPYING MONGO-DB REPO
     ansible.builtin.copy:
-     src: mongodb.repo
+     src: /home/centos/ANSIBLE-ROBOSHOP/mongodb.repo
      dest: /etc/yum.repos.d/mongo.repo
      remote_src: yes
 
